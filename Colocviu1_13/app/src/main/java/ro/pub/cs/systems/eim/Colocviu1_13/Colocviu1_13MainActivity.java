@@ -2,22 +2,35 @@ package ro.pub.cs.systems.eim.Colocviu1_13;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Date;
+
+import ro.pub.cs.systems.eim.Colocviu1_13Service;
+
 public class Colocviu1_13MainActivity extends AppCompatActivity {
 
     EditText text;
     int buttonsPressed = 0;
+    private MessageBroadcastReceiver messageBroadcastReceiver = new MessageBroadcastReceiver();
+    private IntentFilter intentFilter = new IntentFilter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        intentFilter.addAction("bcast");
+        registerReceiver(messageBroadcastReceiver, intentFilter);
+
         if ((savedInstanceState != null) && (savedInstanceState.getInt("buttons_pressed") != 0)) {
             buttonsPressed = savedInstanceState.getInt("buttons_pressed");
             Log.d("pressed", "onCreate received saved state with value = " + String.valueOf(buttonsPressed));
@@ -26,6 +39,25 @@ public class Colocviu1_13MainActivity extends AppCompatActivity {
         }
 
         text = findViewById(R.id.textView8);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(messageBroadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(messageBroadcastReceiver);
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(this, Colocviu1_13Service.class);
+        stopService(intent);
+        super.onDestroy();
     }
 
     @Override
@@ -65,6 +97,11 @@ public class Colocviu1_13MainActivity extends AppCompatActivity {
         text.setText(s.concat("North,"));
         text.setSelection(text.getText().length());
         buttonsPressed++;
+        if (buttonsPressed == 4) {
+            Intent broadcast = new Intent(getApplicationContext(), Colocviu1_13Service.class);
+            broadcast.putExtra("coordinates", text.getText().toString());
+            getApplicationContext().startService(broadcast);
+        }
         return;
     }
 
@@ -73,6 +110,11 @@ public class Colocviu1_13MainActivity extends AppCompatActivity {
         text.setText(s.concat("West,"));
         text.setSelection(text.getText().length());
         buttonsPressed++;
+        if (buttonsPressed == 4) {
+            Intent broadcast = new Intent(getApplicationContext(), Colocviu1_13Service.class);
+            broadcast.putExtra("coordinates", text.getText().toString());
+            getApplicationContext().startService(broadcast);
+        }
         return;
     }
 
@@ -81,6 +123,11 @@ public class Colocviu1_13MainActivity extends AppCompatActivity {
         text.setText(s.concat("East,"));
         text.setSelection(text.getText().length());
         buttonsPressed++;
+        if (buttonsPressed == 4) {
+            Intent broadcast = new Intent(getApplicationContext(), Colocviu1_13Service.class);
+            broadcast.putExtra("coordinates", text.getText().toString());
+            getApplicationContext().startService(broadcast);
+        }
         return;
     }
 
@@ -89,6 +136,18 @@ public class Colocviu1_13MainActivity extends AppCompatActivity {
         text.setText(s.concat("South,"));
         text.setSelection(text.getText().length());
         buttonsPressed++;
+        if (buttonsPressed == 4) {
+            Intent broadcast = new Intent(getApplicationContext(), Colocviu1_13Service.class);
+            broadcast.putExtra("coordinates", text.getText().toString());
+            getApplicationContext().startService(broadcast);
+        }
         return;
+    }
+
+    private class MessageBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("servicebcast", "received broadcast with text: " + intent.getStringExtra("time"));
+        }
     }
 }
