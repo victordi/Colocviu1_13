@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Colocviu1_13MainActivity">
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="351dp"
+        android:layout_height="386dp"
+        android:columnCount="5"
+        android:orientation="vertical"
+        android:rowCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.073">
+
+        <Button
+            android:id="@+id/buttonNorth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:onClick="northHandler"
+            android:text="North" />
+
+        <Button
+            android:id="@+id/buttonWest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:onClick="westHandler"
+            android:text="West" />
+
+        <Button
+            android:id="@+id/buttonEast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:onClick="eastHandler"
+            android:text="East" />
+
+        <Button
+            android:id="@+id/buttonSouth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:onClick="southHandler"
+            android:text="Sout" />
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="186dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout">
+
+        <EditText
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            android:layout_weight="1"
+            android:saveEnabled="false"
+            android:text="" />
+
+        <Button
+            android:id="@+id/buttonSwitch"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:text="Navigate to Secondary Activity" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
